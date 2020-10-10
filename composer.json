@@ -1,5 +1,5 @@
 {
-    "name": "spatie/laravel-medialibrary",
+    "name": "bmarsaud/laravel-medialibrary",
     "description": "Associate files with Eloquent models",
     "keywords": [
         "spatie",
@@ -9,15 +9,22 @@
         "images",
         "downloads",
         "cms",
-        "laravel"
+        "laravel",
+        "php7.3"
     ],
-    "homepage": "https://github.com/spatie/laravel-medialibrary",
+    "homepage": "https://github.com/bmarsaud/laravel-medialibrary",
     "license": "MIT",
     "authors": [
         {
             "name": "Freek Van der Herten",
             "email": "freek@spatie.be",
             "homepage": "https://spatie.be",
+            "role": "Developer"
+        },
+        {
+            "name": "Bastien Marsaud",
+            "email": "bastien@mouseover.fr",
+            "homepage": "https://mouseover.fr",
             "role": "Developer"
         }
     ],
@@ -46,9 +53,9 @@
         "mockery/mockery": "^1.3",
         "orchestra/testbench": "^4.0|^5.0|^6.0",
         "php-ffmpeg/php-ffmpeg": "^0.16.0",
-        "phpunit/phpunit": "^8.0.0",
+        "phpunit/phpunit": "^9.0",
         "spatie/pdf-to-image": "^2.0",
-        "spatie/phpunit-snapshot-assertions": "^3.0"
+        "bmarsaud/phpunit-snapshot-assertions": "^4.2"
     },
     "conflict": {
         "php-ffmpeg/php-ffmpeg": "<0.6.1"
