@@ -9,9 +9,15 @@ use Spatie\MediaLibrary\Support\UrlGenerator\UrlGeneratorFactory;
 
 class ResponsiveImage
 {
-    public string $fileName = '';
+    /**
+     * @var string
+     */
+    public $fileName = '';
 
-    public Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    public $media;
 
     public static function register(Media $media, $fileName, $conversionName)
     {

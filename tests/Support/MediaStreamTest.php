@@ -31,7 +31,9 @@ class MediaStreamTest extends TestCase
 
         $this->assertEquals(count(Media::all()), $zipStreamResponse->getMediaItems()->count());
 
-        Route::get('stream-test', fn () => $zipStreamResponse);
+        Route::get('stream-test', function () use ($zipStreamResponse) {
+            return $zipStreamResponse;
+        });
 
         $response = $this->get('stream-test');
 

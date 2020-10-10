@@ -8,9 +8,15 @@ use Spatie\MediaLibrary\Tests\TestCase;
 
 class ConversionCollectionTest extends TestCase
 {
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
-    protected Media $secondMedia;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $secondMedia;
 
     public function setUp(): void
     {

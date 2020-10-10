@@ -8,11 +8,20 @@ use Spatie\MediaLibrary\Conversions\ImageGenerators\ImageGenerator;
 
 class TestImageGenerator extends ImageGenerator
 {
-    public Collection $supportedMimetypes;
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    public $supportedMimetypes;
 
-    public Collection $supportedExtensions;
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    public $supportedExtensions;
 
-    public bool $shouldMatchBothExtensionsAndMimeTypes = false;
+    /**
+     * @var bool
+     */
+    public $shouldMatchBothExtensionsAndMimeTypes = false;
 
     public function __construct()
     {

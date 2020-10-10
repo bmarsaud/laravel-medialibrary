@@ -8,9 +8,15 @@ use Spatie\MediaLibrary\Tests\TestCase;
 
 class ConversionTest extends TestCase
 {
-    protected string $conversionName = 'test';
+    /**
+     * @var string
+     */
+    protected $conversionName = 'test';
 
-    protected Conversion $conversion;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\Conversion
+     */
+    protected $conversion;
 
     public function setUp(): void
     {

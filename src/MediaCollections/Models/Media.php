@@ -179,7 +179,9 @@ class Media extends Model implements Responsable, Htmlable
     {
         $conversions = ConversionCollection::createForMedia($this);
 
-        return $conversions->map(fn (Conversion $conversion) => $conversion->getName())->toArray();
+        return $conversions->map(function (Conversion $conversion) {
+            return $conversion->getName();
+        })->toArray();
     }
 
     public function hasGeneratedConversion(string $conversionName): bool

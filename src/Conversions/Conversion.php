@@ -9,25 +9,55 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 /** @mixin \Spatie\Image\Manipulations */
 class Conversion
 {
-    protected string $name = '';
+    /**
+     * @var string
+     */
+    protected $name = '';
 
-    protected ConversionFileNamer $conversionFileNamer;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\ConversionFileNamer
+     */
+    protected $conversionFileNamer;
 
-    protected float $extractVideoFrameAtSecond = 0;
+    /**
+     * @var float
+     */
+    protected $extractVideoFrameAtSecond = 0;
 
-    protected Manipulations $manipulations;
+    /**
+     * @var \Spatie\Image\Manipulations
+     */
+    protected $manipulations;
 
-    protected array $performOnCollections = [];
+    /**
+     * @var mixed[]
+     */
+    protected $performOnCollections = [];
 
-    protected bool $performOnQueue;
+    /**
+     * @var bool
+     */
+    protected $performOnQueue;
 
-    protected bool $keepOriginalImageFormat = false;
+    /**
+     * @var bool
+     */
+    protected $keepOriginalImageFormat = false;
 
-    protected bool $generateResponsiveImages = false;
+    /**
+     * @var bool
+     */
+    protected $generateResponsiveImages = false;
 
-    protected ?string $loadingAttributeValue;
+    /**
+     * @var string|null
+     */
+    protected $loadingAttributeValue;
 
-    protected int $pdfPageNumber = 1;
+    /**
+     * @var int
+     */
+    protected $pdfPageNumber = 1;
 
     public function __construct(string $name)
     {

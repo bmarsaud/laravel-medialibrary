@@ -11,7 +11,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaRepository
 {
-    protected Media $model;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $model;
 
     public function __construct(Media $model)
     {

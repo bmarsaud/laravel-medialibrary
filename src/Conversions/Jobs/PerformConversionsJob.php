@@ -14,11 +14,20 @@ class PerformConversionsJob implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels, Queueable;
 
-    protected ConversionCollection $conversions;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\ConversionCollection
+     */
+    protected $conversions;
 
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
-    protected bool $onlyMissing;
+    /**
+     * @var bool
+     */
+    protected $onlyMissing;
 
     public function __construct(ConversionCollection $conversions, Media $media, bool $onlyMissing = false)
     {

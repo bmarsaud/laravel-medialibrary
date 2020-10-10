@@ -7,3 +7,9 @@ phpunit.xml
 .env
 .phpunit.result.cache
 .php_cs.cache
+
+# PHPStorm
+.idea/*
+
+# Composer
+composer.phar

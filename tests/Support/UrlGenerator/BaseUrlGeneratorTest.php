@@ -12,17 +12,35 @@ use Spatie\MediaLibrary\Tests\TestCase;
 
 class BaseUrlGeneratorTest extends TestCase
 {
-    protected Repository $config;
+    /**
+     * @var \Illuminate\Config\Repository
+     */
+    protected $config;
 
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
-    protected Conversion $conversion;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\Conversion
+     */
+    protected $conversion;
 
-    protected Conversion $conversionKeepingOriginalImageFormat;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\Conversion
+     */
+    protected $conversionKeepingOriginalImageFormat;
 
-    protected DefaultUrlGenerator $urlGenerator;
+    /**
+     * @var \Spatie\MediaLibrary\Support\UrlGenerator\DefaultUrlGenerator
+     */
+    protected $urlGenerator;
 
-    protected DefaultPathGenerator $pathGenerator;
+    /**
+     * @var \Spatie\MediaLibrary\Support\PathGenerator\DefaultPathGenerator
+     */
+    protected $pathGenerator;
 
     public function setUp(): void
     {

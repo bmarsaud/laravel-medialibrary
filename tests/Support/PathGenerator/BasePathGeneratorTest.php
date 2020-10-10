@@ -11,15 +11,30 @@ use Spatie\MediaLibrary\Tests\TestCase;
 
 class BasePathGeneratorTest extends TestCase
 {
-    protected Repository $config;
+    /**
+     * @var \Illuminate\Config\Repository
+     */
+    protected $config;
 
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
-    protected Conversion $conversion;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\Conversion
+     */
+    protected $conversion;
 
-    protected DefaultUrlGenerator $urlGenerator;
+    /**
+     * @var \Spatie\MediaLibrary\Support\UrlGenerator\DefaultUrlGenerator
+     */
+    protected $urlGenerator;
 
-    protected CustomPathGenerator $pathGenerator;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\Support\PathGenerator\CustomPathGenerator
+     */
+    protected $pathGenerator;
 
     public function setUp(): void
     {

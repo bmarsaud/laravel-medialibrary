@@ -144,7 +144,9 @@ class GetMediaTest extends TestCase
             ->withCustomProperties(['filter2' => 'value2'])
             ->toMediaCollection('images');
 
-        $collection = $this->testModel->getMedia('images', fn (Media $media) => isset($media->custom_properties['filter1']));
+        $collection = $this->testModel->getMedia('images', function (Media $media) {
+            return isset($media->custom_properties['filter1']);
+        });
 
         $this->assertCount(1, $collection);
         $this->assertSame($collection->first()->id, $media2->id);
@@ -203,7 +205,9 @@ class GetMediaTest extends TestCase
         $media->name = 'second';
         $media->save();
 
-        $firstMedia = $this->testModel->getFirstMedia('images', fn (Media $media) => isset($media->custom_properties['extra_property']));
+        $firstMedia = $this->testModel->getFirstMedia('images', function (Media $media) {
+            return isset($media->custom_properties['extra_property']);
+        });
 
         $this->assertEquals('first', $firstMedia->name);
     }

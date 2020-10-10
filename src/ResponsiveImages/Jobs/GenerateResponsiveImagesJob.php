@@ -13,7 +13,10 @@ class GenerateResponsiveImagesJob implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels, Queueable;
 
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
     public function __construct(Media $media)
     {
