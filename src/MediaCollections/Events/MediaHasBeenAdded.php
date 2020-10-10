@@ -9,7 +9,10 @@ class MediaHasBeenAdded
 {
     use SerializesModels;
 
-    public Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    public $media;
 
     public function __construct(Media $media)
     {

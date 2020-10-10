@@ -11,7 +11,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ConversionCollection extends Collection
 {
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
     public static function createForMedia(Media $media): self
     {
@@ -33,7 +36,9 @@ class ConversionCollection extends Collection
 
     public function getByName(string $name): Conversion
     {
-        $conversion = $this->first(fn (Conversion $conversion) => $conversion->getName() === $name);
+        $conversion = $this->first(function (Conversion $conversion) use ($name) {
+            return $conversion->getName() === $name;
+        });
 
         if (! $conversion) {
             throw InvalidConversion::unknownName($name);
@@ -80,14 +85,18 @@ class ConversionCollection extends Collection
             return $this;
         }
 
-        return $this->filter(fn (Conversion $conversion) => $conversion->shouldBePerformedOn($collectionName));
+        return $this->filter(function (Conversion $conversion) use ($collectionName) {
+            return $conversion->shouldBePerformedOn($collectionName);
+        });
     }
 
     public function getQueuedConversions(string $collectionName = ''): self
     {
         return $this
             ->getConversions($collectionName)
-            ->filter(fn (Conversion $conversion) => $conversion->shouldBeQueued());
+            ->filter(function (Conversion $conversion) {
+                return $conversion->shouldBeQueued();
+            });
     }
 
     protected function addManipulationToConversion(Manipulations $manipulations, string $conversionName)
@@ -111,7 +120,9 @@ class ConversionCollection extends Collection
 
         if ($conversionName === '*') {
             $this->each(
-                fn (Conversion $conversion) => $conversion->addAsFirstManipulations(clone $manipulations)
+                function (Conversion $conversion) use ($manipulations) {
+                    return $conversion->addAsFirstManipulations(clone $manipulations);
+                }
             );
         }
     }
@@ -120,13 +131,17 @@ class ConversionCollection extends Collection
     {
         return $this
             ->getConversions($collectionName)
-            ->reject(fn (Conversion $conversion) => $conversion->shouldBeQueued());
+            ->reject(function (Conversion $conversion) {
+                return $conversion->shouldBeQueued();
+            });
     }
 
     public function getConversionsFiles(string $collectionName = ''): self
     {
         return $this
             ->getConversions($collectionName)
-            ->map(fn (Conversion $conversion) => $conversion->getConversionFile($this->media));
+            ->map(function (Conversion $conversion) {
+                return $conversion->getConversionFile($this->media);
+            });
     }
 }

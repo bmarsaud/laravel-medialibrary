@@ -20,21 +20,45 @@ use ZipArchive;
 
 abstract class TestCase extends Orchestra
 {
-    protected TestModel $testModel;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModel
+     */
+    protected $testModel;
 
-    protected TestModel $testUnsavedModel;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModel
+     */
+    protected $testUnsavedModel;
 
-    protected TestModelWithConversion $testModelWithConversion;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModelWithConversion
+     */
+    protected $testModelWithConversion;
 
-    protected TestModelWithoutMediaConversions $testModelWithoutMediaConversions;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModelWithoutMediaConversions
+     */
+    protected $testModelWithoutMediaConversions;
 
-    protected TestModelWithConversionQueued $testModelWithConversionQueued;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModelWithConversionQueued
+     */
+    protected $testModelWithConversionQueued;
 
-    protected TestModelWithMorphMap $testModelWithMorphMap;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModelWithMorphMap
+     */
+    protected $testModelWithMorphMap;
 
-    protected TestModelWithResponsiveImages $testModelWithResponsiveImages;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModelWithResponsiveImages
+     */
+    protected $testModelWithResponsiveImages;
 
-    protected TestModelWithConversionsOnOtherDisk $testModelWithConversionsOnOtherDisk;
+    /**
+     * @var \Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModelWithConversionsOnOtherDisk
+     */
+    protected $testModelWithConversionsOnOtherDisk;
 
     public function setUp(): void
     {
@@ -105,7 +129,9 @@ abstract class TestCase extends Orchestra
             'url' => '/media2',
         ]);
 
-        $app->bind('path.public', fn () => $this->getTempDirectory());
+        $app->bind('path.public', function () {
+            return $this->getTempDirectory();
+        });
 
         config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 

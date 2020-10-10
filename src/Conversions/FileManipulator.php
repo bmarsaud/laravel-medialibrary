@@ -23,7 +23,9 @@ class FileManipulator
 
         if (! empty($only)) {
             $profileCollection = $profileCollection->filter(
-                fn (Conversion $conversion) => in_array($conversion->getName(), $only)
+                function (Conversion $conversion) use ($only) {
+                    return in_array($conversion->getName(), $only);
+                }
             );
         }
 

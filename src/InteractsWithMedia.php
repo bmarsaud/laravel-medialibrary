@@ -26,15 +26,21 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 trait InteractsWithMedia
 {
-    /** @var \Spatie\MediaLibrary\Conversions\Conversion[] */
-    public array $mediaConversions = [];
+    /** @var [] */
+    public $mediaConversions = [];
 
-    /** @var \Spatie\MediaLibrary\MediaCollections\MediaCollection[] */
-    public array $mediaCollections = [];
+    /** @var [] */
+    public $mediaCollections = [];
 
-    protected bool $deletePreservingMedia = false;
+    /**
+     * @var bool
+     */
+    protected $deletePreservingMedia = false;
 
-    protected array $unAttachedMediaLibraryItems = [];
+    /**
+     * @var []
+     */
+    protected $unAttachedMediaLibraryItems = [];
 
     public static function bootInteractsWithMedia()
     {
@@ -49,7 +55,9 @@ trait InteractsWithMedia
                 }
             }
 
-            $model->media()->cursor()->each(fn (Media $media) => $media->delete());
+            $model->media()->cursor()->each(function (Media $media) {
+                return $media->delete();
+            });
         });
     }
 
@@ -300,7 +308,9 @@ trait InteractsWithMedia
         $this->registerMediaCollections();
 
         return collect($this->mediaCollections)
-            ->first(fn (MediaCollection $collection) => $collection->name === $collectionName);
+            ->first(function (MediaCollection $collection) use ($collectionName) {
+                return $collection->name === $collectionName;
+            });
     }
 
     public function getFallbackMediaUrl(string $collectionName = 'default'): string
@@ -370,11 +380,15 @@ trait InteractsWithMedia
     {
         $this
             ->getMedia($collectionName)
-            ->reject(fn (Media $currentMediaItem) => in_array(
-                $currentMediaItem->getKey(),
-                array_column($newMediaArray, $currentMediaItem->getKeyName()),
-            ))
-            ->each(fn (Media $media) => $media->delete());
+            ->reject(function (Media $currentMediaItem) use ($newMediaArray) {
+                return in_array(
+                    $currentMediaItem->getKey(),
+                    array_column($newMediaArray, $currentMediaItem->getKeyName()),
+                );
+            })
+            ->each(function (Media $media) {
+                return $media->delete();
+            });
 
         if ($this->mediaIsPreloaded()) {
             unset($this->media);
@@ -385,7 +399,9 @@ trait InteractsWithMedia
     {
         $this
             ->getMedia($collectionName)
-            ->each(fn (Media $media) => $media->delete());
+            ->each(function (Media $media) {
+                return $media->delete();
+            });
 
         event(new CollectionHasBeenCleared($this, $collectionName));
 
@@ -418,8 +434,12 @@ trait InteractsWithMedia
 
         $this
             ->getMedia($collectionName)
-            ->reject(fn (Media $media) => $excludedMedia->where($media->getKeyName(), $media->getKey())->count())
-            ->each(fn (Media $media) => $media->delete());
+            ->reject(function (Media $media) use ($excludedMedia) {
+                return $excludedMedia->where($media->getKeyName(), $media->getKey())->count();
+            })
+            ->each(function (Media $media) {
+                return $media->delete();
+            });
 
         if ($this->mediaIsPreloaded()) {
             unset($this->media);
@@ -500,7 +520,9 @@ trait InteractsWithMedia
             : collect($this->unAttachedMediaLibraryItems)->pluck('media');
 
         return $collection
-            ->filter(fn (Media $mediaItem) => $mediaItem->collection_name === $collectionName)
+            ->filter(function (Media $mediaItem) use ($collectionName) {
+                return $mediaItem->collection_name === $collectionName;
+            })
             ->sortBy('order_column')
             ->values();
     }
@@ -557,11 +579,13 @@ trait InteractsWithMedia
             ($mediaCollection->mediaConversionRegistrations)($media);
 
             $preparedMediaConversions = collect($this->mediaConversions)
-                ->each(fn (Conversion $conversion) => $conversion->performOnCollections($mediaCollection->name))
+                ->each(function (Conversion $conversion) use ($mediaCollection) {
+                    return $conversion->performOnCollections($mediaCollection->name);
+                })
                 ->values()
                 ->toArray();
 
-            $this->mediaConversions = [...$actualMediaConversions, ...$preparedMediaConversions];
+            $this->mediaConversions = array_merge(is_array($actualMediaConversions) ? $actualMediaConversions : iterator_to_array($actualMediaConversions), is_array($preparedMediaConversions) ? $preparedMediaConversions : iterator_to_array($preparedMediaConversions));
         });
 
         $this->registerMediaConversions($media);

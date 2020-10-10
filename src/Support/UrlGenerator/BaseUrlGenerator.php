@@ -11,13 +11,25 @@ use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
 
 abstract class BaseUrlGenerator implements UrlGenerator
 {
-    protected ?Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media|null
+     */
+    protected $media;
 
-    protected ?Conversion $conversion = null;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\Conversion|null
+     */
+    protected $conversion = null;
 
-    protected ?PathGenerator $pathGenerator;
+    /**
+     * @var \Spatie\MediaLibrary\Support\PathGenerator\PathGenerator|null
+     */
+    protected $pathGenerator;
 
-    protected Config $config;
+    /**
+     * @var Config
+     */
+    protected $config;
 
     public function __construct(Config $config)
     {

@@ -10,11 +10,20 @@ class ConversionWillStart
 {
     use SerializesModels;
 
-    public Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    public $media;
 
-    public Conversion $conversion;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\Conversion
+     */
+    public $conversion;
 
-    public string $copiedOriginalFile;
+    /**
+     * @var string
+     */
+    public $copiedOriginalFile;
 
     public function __construct(Media $media, Conversion $conversion, string $copiedOriginalFile)
     {

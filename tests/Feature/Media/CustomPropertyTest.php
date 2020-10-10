@@ -7,9 +7,15 @@ use Spatie\MediaLibrary\Tests\TestCase;
 
 class CustomPropertyTest extends TestCase
 {
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
-    protected Media $mediaWithoutCustomProperty;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $mediaWithoutCustomProperty;
 
     public function setUp(): void
     {

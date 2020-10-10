@@ -9,13 +9,25 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class HtmlableMedia implements Htmlable
 {
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
-    protected string $conversionName = '';
+    /**
+     * @var string
+     */
+    protected $conversionName = '';
 
-    protected array $extraAttributes = [];
+    /**
+     * @var mixed[]
+     */
+    protected $extraAttributes = [];
 
-    protected string $loadingAttributeValue = '';
+    /**
+     * @var string
+     */
+    protected $loadingAttributeValue = '';
 
     public function __construct(Media $media)
     {
@@ -50,7 +62,9 @@ class HtmlableMedia implements Htmlable
         }
 
         $attributeString = collect($this->extraAttributes)
-            ->map(fn ($value, $name) => $name.'="'.$value.'"')->implode(' ');
+            ->map(function ($value, $name) {
+                return $name.'="'.$value.'"';
+            })->implode(' ');
 
         if (strlen($attributeString)) {
             $attributeString = ' '.$attributeString;

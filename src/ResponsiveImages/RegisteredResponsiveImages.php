@@ -7,11 +7,20 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class RegisteredResponsiveImages
 {
-    protected Media $media;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Models\Media
+     */
+    protected $media;
 
-    public Collection $files;
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    public $files;
 
-    public string $generatedFor;
+    /**
+     * @var string
+     */
+    public $generatedFor;
 
     public function __construct(Media $media, string $conversionName = '')
     {
@@ -22,14 +31,20 @@ class RegisteredResponsiveImages
             : $conversionName;
 
         $this->files = collect($media->responsive_images[$this->generatedFor]['urls'] ?? [])
-            ->map(fn (string $fileName) => new ResponsiveImage($fileName, $media))
-            ->filter(fn (ResponsiveImage $responsiveImage) => $responsiveImage->generatedFor() === $this->generatedFor);
+            ->map(function (string $fileName) use ($media) {
+                return new ResponsiveImage($fileName, $media);
+            })
+            ->filter(function (ResponsiveImage $responsiveImage) {
+                return $responsiveImage->generatedFor() === $this->generatedFor;
+            });
     }
 
     public function getUrls(): array
     {
         return $this->files
-            ->map(fn (ResponsiveImage $responsiveImage) => $responsiveImage->url())
+            ->map(function (ResponsiveImage $responsiveImage) {
+                return $responsiveImage->url();
+            })
             ->values()
             ->toArray();
     }
@@ -37,7 +52,9 @@ class RegisteredResponsiveImages
     public function getSrcset(): string
     {
         $filesSrcset = $this->files
-            ->map(fn (ResponsiveImage $responsiveImage) => "{$responsiveImage->url()} {$responsiveImage->width()}w")
+            ->map(function (ResponsiveImage $responsiveImage) {
+                return "{$responsiveImage->url()} {$responsiveImage->width()}w";
+            })
             ->implode(', ');
 
         $shouldAddPlaceholderSvg = config('media-library.responsive_images.use_tiny_placeholders')

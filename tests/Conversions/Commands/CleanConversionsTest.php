@@ -10,7 +10,10 @@ use Spatie\MediaLibrary\Tests\TestSupport\TestModels\TestModelWithConversion;
 
 class CleanConversionsTest extends TestCase
 {
-    protected array $media;
+    /**
+     * @var mixed[]
+     */
+    protected $media;
 
     public function setUp(): void
     {

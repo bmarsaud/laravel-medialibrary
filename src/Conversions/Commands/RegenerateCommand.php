@@ -23,11 +23,20 @@ class RegenerateCommand extends Command
 
     protected $description = 'Regenerate the derived images of media';
 
-    protected MediaRepository $mediaRepository;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\MediaRepository
+     */
+    protected $mediaRepository;
 
-    protected FileManipulator $fileManipulator;
+    /**
+     * @var \Spatie\MediaLibrary\Conversions\FileManipulator
+     */
+    protected $fileManipulator;
 
-    protected array $errorMessages = [];
+    /**
+     * @var mixed[]
+     */
+    protected $errorMessages = [];
 
     public function handle(MediaRepository $mediaRepository, FileManipulator $fileManipulator)
     {

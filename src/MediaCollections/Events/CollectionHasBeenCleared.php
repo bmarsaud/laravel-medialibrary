@@ -9,9 +9,15 @@ class CollectionHasBeenCleared
 {
     use SerializesModels;
 
-    public HasMedia $model;
+    /**
+     * @var \Spatie\MediaLibrary\HasMedia
+     */
+    public $model;
 
-    public string $collectionName;
+    /**
+     * @var string
+     */
+    public $collectionName;
 
     public function __construct(HasMedia $model, string $collectionName)
     {

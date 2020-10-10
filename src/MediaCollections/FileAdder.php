@@ -25,42 +25,86 @@ class FileAdder
 {
     use Macroable;
 
-    protected ?Model $subject;
+    /**
+     * @var \Illuminate\Database\Eloquent\Model|null
+     */
+    protected $subject;
 
-    protected ?Filesystem $filesystem;
+    /**
+     * @var \Spatie\MediaLibrary\MediaCollections\Filesystem|null
+     */
+    protected $filesystem;
 
-    protected bool $preserveOriginal = false;
+    /**
+     * @var bool
+     */
+    protected $preserveOriginal = false;
 
     /** @var \Symfony\Component\HttpFoundation\File\UploadedFile|string */
     protected $file;
 
-    protected array $properties = [];
+    /**
+     * @var mixed[]
+     */
+    protected $properties = [];
 
-    protected array $customProperties = [];
+    /**
+     * @var mixed[]
+     */
+    protected $customProperties = [];
 
-    protected array $manipulations = [];
+    /**
+     * @var mixed[]
+     */
+    protected $manipulations = [];
 
-    protected string $pathToFile = '';
+    /**
+     * @var string
+     */
+    protected $pathToFile = '';
 
-    protected string $fileName = '';
+    /**
+     * @var string
+     */
+    protected $fileName = '';
 
-    protected string $mediaName = '';
+    /**
+     * @var string
+     */
+    protected $mediaName = '';
 
-    protected string $diskName = '';
+    /**
+     * @var string
+     */
+    protected $diskName = '';
 
-    protected string $conversionsDiskName = '';
+    /**
+     * @var string
+     */
+    protected $conversionsDiskName = '';
 
-    protected ?Closure $fileNameSanitizer;
+    /**
+     * @var \Closure|null
+     */
+    protected $fileNameSanitizer;
 
-    protected bool $generateResponsiveImages = false;
+    /**
+     * @var bool
+     */
+    protected $generateResponsiveImages = false;
 
-    protected array $customHeaders = [];
+    /**
+     * @var mixed[]
+     */
+    protected $customHeaders = [];
 
     public function __construct(Filesystem $fileSystem)
     {
         $this->filesystem = $fileSystem;
 
-        $this->fileNameSanitizer = fn ($fileName) => $this->defaultSanitizer($fileName);
+        $this->fileNameSanitizer = function ($fileName) {
+            return $this->defaultSanitizer($fileName);
+        };
     }
 
     public function setSubject(Model $subject): self
@@ -432,7 +476,9 @@ class FileAdder
         $this->subject->registerMediaCollections();
 
         return collect($this->subject->mediaCollections)
-            ->first(fn (MediaCollection $collection) => $collection->name === $collectionName);
+            ->first(function (MediaCollection $collection) use ($collectionName) {
+                return $collection->name === $collectionName;
+            });
     }
 
     protected function guardAgainstDisallowedFileAdditions(Media $media)
