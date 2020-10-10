@@ -1,6 +1,6 @@
 {
     "name": "bmarsaud/laravel-medialibrary",
-    "description": "Associate files with Eloquent models",
+    "description": "Associate files with Eloquent models for PHP 7.3",
     "keywords": [
         "spatie",
         "laravel-medialibrary",

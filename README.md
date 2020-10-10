@@ -4,6 +4,22 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-medialibrary/run-tests?label=tests)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-medialibrary.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-medialibrary)
 
+## Why this fork ?
+The purpose of this fork is to make the `spatie/laravel-medialibrary` package compatible with PHP 7.3.
+
+The compatibility is ensured using [Rector](https://github.com/rectorphp/rector) plus some manual tweaks.
+
+Note that the only version currently available is the `8.10.1`.
+
+A more durable and reliable way would be to use a GitHub action applying Rector on each tag pushed on the original repository.
+
+Install this package using the following command and follow the official documentation.
+```bash
+composer require "bmarsaud/laravel-medialibrary:^8.10.1"
+```
+
+## Description
+
 This package can associate all sorts of files with Eloquent models. It provides a
 simple API to work with. To learn all about it, head over to [the extensive documentation](https://docs.spatie.be/laravel-medialibrary/v8).
 
